@@ -27,8 +27,8 @@ namespace EDPortTest.Web
             if (request.HttpMethod != "POST")
             {// http handling
                 return System.Text.Encoding.UTF8.GetBytes("{"
-                + $"'error': True,"
-                + $"'message': 'Expected POST.'"
+                + $"\"error\": true,"
+                + $"\"message\": \"Expected POST\""
                 + "}\n");
             }
             try
@@ -38,15 +38,15 @@ namespace EDPortTest.Web
                 bool res = PortTester.TestPort(json!.IP, json!.Port);
 
                 return System.Text.Encoding.UTF8.GetBytes("{"
-                + $"'error': False,"
-                + $"'message': '{(res ? "OK" : "NOTOK")}'"
+                + $"\"error\": false,"
+                + $"\"message\": \"{(res ? "OK" : "NOTOK")}\""
                 + "}\n");
             }
             catch (Exception e)
             {
                 return System.Text.Encoding.UTF8.GetBytes("{"
-                + $"'error': True,"
-                + $"'message': '{e.Message}'"
+                + $"\"error\": true,"
+                + $"\"message\": \"{e.Message}\""
                 + "}\n");
             }
         }
@@ -69,6 +69,7 @@ namespace EDPortTest.Web
             byte[] buffer = CreateResponse(request, body);
             response.ContentLength64 = buffer.Length;
             response.Headers.Add("Access-Control-Allow-Origin", "https://niceygy.net");
+            response.Headers.Add("Access-Control-Allow-Headers", "content-type");
             response.Headers.Add("Content-Type", "application/json");
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();

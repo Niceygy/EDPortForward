@@ -1,0 +1,46 @@
+<div style="text-align: center;">
+<!-- HTML input and button -->
+ <p>IP: (in the format xxx.xxx.xxx.xxx)</p>
+<input type="text" id="ip_addr" />
+<p>Port: (4-digit number)</p>
+<input type="number" id="port" />
+<br></br>
+<p id="result"></p>
+<button onclick="Run()">Run</button>
+
+<!-- JavaScript function -->
+<script>
+function Run() {
+    const IP = document.getElementById('ip_addr').value;
+    const PORT = document.getElementById('port').value;
+    
+
+    fetch("https://edporttest.niceygy.net/", {
+        method: "POST",
+        body: JSON.stringify({
+            'IP': IP,
+            'Port': PORT
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(json => res(json));
+}
+
+function res(json) {
+    var result = "";
+    
+    if (json.error) {
+        result = `There was an error! Please try again later (error = '${json.message}')`
+    } else if (json.message == "OK") {
+        result = "Port open! It seems like your computer is allowing connections on the specified port. Elite should have no issues connecting to other players!"
+    } else {
+        result = "Port closed! It seems like your computer is blocking connections on the specified port. Try reading the guide below :)"
+    }
+
+    document.getElementById("result").textContent = result;
+     
+}
+</script></div>
