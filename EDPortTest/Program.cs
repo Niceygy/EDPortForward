@@ -6,7 +6,7 @@ namespace EDPortTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Test");
+            Console.WriteLine("Loading EDPortTest server...");
             HTTP.Serve("localhost", 8090);
         }
     }
