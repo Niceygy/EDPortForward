@@ -1,4 +1,4 @@
-dotnet publish -c Release -r linux-arm64 --self-contained true /p:PublishSingleFile=true
+dotnet publish -c Release -r linux-arm64 #--self-contained true /p:PublishSingleFile=true
 
 # Build the Docker image
 docker build -t niceygy/edportforward .
